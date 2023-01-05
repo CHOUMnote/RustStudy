@@ -7,3 +7,5 @@ Cargo.lock
 #######################
 .vscode/
 main/target/
+testrust/
+.exe

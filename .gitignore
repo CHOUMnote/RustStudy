@@ -9,3 +9,4 @@ Cargo.lock
 main/target/
 testrust/
 .exe
+todo.md

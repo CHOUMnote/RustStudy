@@ -1,55 +1,55 @@
+use std::{self, mem}; //c++ using, c# use
+
 /**
- * 스칼라 타입 변수 - 단일 값 변수
- * 복합 값 - 배열, 튜플 등등
+ * -print 매크로 함수 알아보기
+ * cli출력을 위해서 rust에서 제공하는 메크로 함수 여러 기능 알아보기
+ * 1. 대부분 파이썬과 유사하다. f-string, r-string...
+ * ex) ("{1} {0} {2}",~~,~~,~~), r"~~~"
+ * 2. 파이썬과 유사하게 출력 조작이 가능하다.
+ * 3. {:?}로 디버그 출력이 가능하다(정말 유용하다) - 파이썬은 기본적으로 __str__()을 호출해 버리거나 toString()을 출력하지만 디버그 출력으로 더욱 편하고, 원하는 데이터인지를 판별 할 수 있다.
  */
 fn main() {
-    //단일 값 사용 방법
-    print!("Scalar 변수");
-    {
-        //rust 타입별 출력
-        let a: i32 = 1_000_000_000; //가독성 좋은 10진수
-        println!("{}", a);
+    let name = String::from("김지호");
+    let num = 24;
 
-        let a = 0xff; //16진수
-        println!("{}", a);
+    show_title("기본 출력");
+    basic_print_macro(&name, num);
+    show_title("출력 조작");
+    basic_print_manip(&name, num);
+    show_title("디버그 프린트");
+    _basic_print_debug(&name, num);
+}
 
-        let a = 0o15; //8진수
-        println!("{}", a);
+///기본 출력 형식
+fn basic_print_macro(a: &String, b: i32) {
+    println!("{} {} {}", "이름과 나이", a, b * 2); //기본 - 순서대로 입력된다.
+    println!("{1} {2} {0}", "이름과 나이", a, b); //인덱스 - 인자가 인덱스에 따라 입력된다..
+    println!("{string} {a} {b}", string = "이름과 나이"); //naming - 변수를 입력한다.
 
-        let a = 0b1111_1111; //2진수
-        println!("{}", a);
+    let script = "안녕하세요~
+    저는
+김지호입니다";
+    println!("{}", script); //여러줄 출력 - \t 주의!
+}
 
-        let a = b'A'; //1바이트 값(아스키코드)
-        println!("{}", a);
+///출력 형식 조정
+fn basic_print_manip(a: &String, b: i32) {
+    println!("주소 : {:p}",a);   //주소
+    println!("16진수 : {:x}",b*2014);   //16진수 {:X},{:O} -> 대문자 출력
+    println!("8진수 : {:o}",b);   //8진수
+    println!("2진수 : {:b}",b);   //2진수
+}
 
-        let a = 1.12345; //부동소수점
-        println!("{}", a);
+///디버그 프린트
+fn _basic_print_debug(a: &String, b: i32) {
+    println!("{:?}", a);   //:? -> 디버그 프린트
+    println!("{:?}", b);      
+    let arr:[i8;10] = [7;10];
+    println!("{:?}", arr);
+    println!("{:?}", a.chars());
+}
 
-        let a = false; //boolean
-        println!("{}", a);
-
-        let a = 'A'; //유니코드
-        println!("{}", a);
-    }
-    {
-        //복합 값 사용 방법
-        print!("\nCompound  변수");
-        {
-            let arr1 = [1, 2, 3]; //선언-> [type; size]
-                                  //let arr:[i32; 5] = [1,2,3];// rust에 널은 없다! 에러!
-            let arr2 = [0; 100]; //생성 및 초기화
-
-            println!("배열의 2번째 원소는? {}", 1);
-            println!("배열 출력? {:?}", arr1);
-            println!("배열 길이? {}", arr2.len());
-        }
-
-        {
-            //튜플은 수정 안됨
-            let tuple1 = (1, 1.4, "Asv", true);
-            let tuple2: (i16, f32) = (1, 3.14);
-
-            println!("3번째 원소 출력? {}", tuple1.2);
-        }
-    }
+fn show_title(a:&str){
+    println!();
+    println!("{:-^20}",a);  //20칸 '-'로 채우고 인자값 가운데 정렬
 }

@@ -5,7 +5,7 @@
  * 메소드 - member method
  */
 
-fn main() {
+ fn main() {
     let mut kim = Person::new("jiho".to_owned(), 24, Sex::male); //연관 함수
     kim.set_name("Kimjiho"); //멤버 함수
     println!("i`m {kim:#?}");

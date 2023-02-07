@@ -1,32 +1,25 @@
 /**
- * 제네릭 심화
- * 여러 제네릭 타입과 제네릭 타입에 대한 정보를 컴파일러에게 알려준다.
- * - 제네릭 타입에 대한 trait를 선언
- * ex) Debug, Display, PartialOrd;
- * 
- * where -> 제네릭이 길어지면 복잡해진다. 가독성 증가를 위해 사용한다.
+ * 많은 함수들이 Option 또는 Result 반환을 한다.
+ * Some(T), None 을 반환한다.
+ * Some(T).unwrap()을 통해 값을 얻는다.
+ * None은 unwrap을 할수 없다. - None은 None일 뿐이다.
  */
 
- use std::fmt::Display;
- use std::cmp::PartialOrd;
-
- //여러 trait를 사용
- fn compare<T:Display, U:Display+PartialOrd>(a:T, num1:U, num2:U){
-    println!("{} {} > {}? {}",a,num1,num2,num1>num2);
- }
-
- //where 문
- fn test<T, U>(a:T, num1:U, num2:U)
- where
-    T:Display,
-    U:Display+PartialOrd,
- {
-
-    println!("{} {} > {}? {}",a,num1,num2,num1>num2);
- }
-
+//안전하고
+fn get_fifth(vec:Vec<i32>) -> Option<i32>{
+   if vec.len() < 5{
+      return None
+   } else{
+     return Some(vec[4])
+   }
+}
 
 fn main() {
-    compare("num1과 num2를 비교 : ".to_string(), 10, 30);
-    test("num1과 num2를 비교 : ".to_string(), 10, -1);
+   let v1 = vec![1,2,3,4,5];
+   let v2 = vec![1,2,3];
+
+   let some = get_fifth(v1);
+   println!("{:?}", some);
+   println!("{}", some.unwrap());
+   println!("{:?}", get_fifth(v2));
 }

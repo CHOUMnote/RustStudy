@@ -1,5 +1,5 @@
 # RustStudy
-러스트를 배우자!
+### 러스트를 배우자!
 
 [러스트 사용하기!](https://github.com/CHOUMnote/RustStudy/blob/main/docs/wiki.md)
 

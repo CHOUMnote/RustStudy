@@ -1,25 +1,37 @@
 /**
- * Deque
- * 스택+큐+벡터
- * 벡터를 스텍으로 사용한다면 O(1)로 연산을 할 수있다.
- * 벡터를 큐로 사용한다면 O(N)만큼 걸린다
-*/
+ * blanket trait
+ * 뭔가를 감싸는 trait 라는 뜻으로 js의 prototype?
+ * bound된 모든 것들은 이 trait를 사용할 수 있게 된다.
+ * 말로는 어려우니 밑 예제를 보자
+ */
 
-use std::collections::VecDeque;
+use std::fmt::*;
+#[derive(Debug)]
+struct person{name:String}
 
-fn main() {
-   let mut a = vec![1,2,3,4,5,6];
-   println!("{}",a.pop().unwrap()); //상수시간만큼 걸린다
-   println!("{}",a.remove(0)); //O(N) 만큼 걸린다
-   println!("{:?}",a);
+///1. 모든 대상에게 적용
+trait print {
+   fn print(&self) {
+       println!("print");
+   }
+}
+impl<T> print for T{}   //T는 trait bound가 없기에 모든 대상
 
-   //push front,back - pop front, back 연산
-   let mut deque = VecDeque::new(); //앞뒤로 넣기는 O(1)
-   deque.push_back(1);  //1
-   deque.push_front(0); //0 1
-   deque.push_back(2);  //0 1 2
-   println!("{:?}",deque);
-   println!("{:?}",deque.pop_front()); //0
-   println!("{:?}",deque.pop_back());  //2
-   println!("{:?}",deque);
+///2. 특정 trait가 포함된 대상에게 적용
+trait display{
+   fn display(){
+      println!("display");
+   }
+}
+impl<T:print+Debug> display for T{
+
+
+}
+fn main(){
+   println!("case 1");
+   String::new().print();
+
+   println!("\ncase 2");
+   String::display();
+   person::display();
 }

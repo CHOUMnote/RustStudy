@@ -15,7 +15,7 @@
     println!("iter1 is {:?}",iter1);
  
     let iter2 = vec.iter_mut();
-    iter2.for_each(|x| *x*=2); //ref이기 때문에 *연산자 사용
+    iter2.for_each(|x| *x*=2); //ref이기 때문에 *연산자 사용  
     println!("iter2 is {:?}",vec);
  
     let iter3 = vec.into_iter().map(|x| x+1).collect::<Vec<i32>>();;
